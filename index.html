@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dash</title>
+    <link rel="icon" href="assets/images/icon.png" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Press+Start+2P"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body translate="no">
+    <div id="game">
+      <!-- road / scenery (drawn by js/game.js) -->
+      <div id="road">
+        <div id="cloud"></div>
+        <div id="hero"></div>
+      </div>
+
+      <!-- race HUD -->
+      <div id="hud">
+        <span id="time" class="topUI">120</span>
+        <span id="score" class="topUI">0</span>
+        <span id="lap" class="topUI">0'00"000</span>
+        <span id="tacho">0</span>
+
+        <!-- track progress strip: you (yellow), Blackout pace (red), finish (flag) -->
+        <div id="minimap" title="Track progress">
+          <span id="mmLabel">MAP</span>
+          <div id="mmTrack"></div>
+          <div id="mmGhost" title="Blackout pace"></div>
+          <div id="mmPlayer" title="You"></div>
+          <div id="mmFlag"></div>
+        </div>
+      </div>
+
+      <!-- on-screen countdown: 5, 4, 3, 2, GO! -->
+      <div id="countdown" aria-live="assertive"></div>
+
+      <!-- ===== MAIN MENU ===== -->
+      <div id="home">
+        <h1>Dash</h1>
+
+        <div id="lapBoardPanel" class="panel">
+          <h2>Lap Scoreboard</h2>
+          <ol id="lapBoard" class="board"></ol>
+          <p class="note">Beat Blackout's time before the 120s clock runs out</p>
+        </div>
+
+        <div id="menu">
+          <button id="startBtn" class="menu-btn">Start Game</button>
+          <button id="howBtn" class="menu-btn">How to Play</button>
+          <button id="settingsBtn" class="menu-btn">Settings</button>
+        </div>
+
+        <p id="hint" class="blink">C START &nbsp; P PAUSE &nbsp; M MUTE</p>
+      </div>
+
+      <!-- ===== PAUSE ===== -->
+      <div id="pauseMenu" class="overlay">
+        <h2>Paused</h2>
+        <button id="resumeBtn" class="menu-btn">Resume</button>
+        <button id="restartBtn" class="menu-btn">Restart</button>
+        <button id="pauseSettingsBtn" class="menu-btn">Settings</button>
+        <button id="pauseMenuBtn" class="menu-btn">Main Menu</button>
+      </div>
+
+      <!-- ===== HOW TO PLAY ===== -->
+      <div id="howPanel" class="overlay" role="dialog" aria-modal="true">
+        <div class="panel wide">
+          <h2>How to Play</h2>
+
+          <div class="keys">
+            <div class="pad">
+              <span class="cap up">&uarr;</span>
+              <span class="cap left">&larr;</span>
+              <span class="cap down">&darr;</span>
+              <span class="cap right">&rarr;</span>
+            </div>
+            <ul class="legend">
+              <li><span class="cap">&larr;</span> / <span class="cap">A</span> Steer left</li>
+              <li><span class="cap">&rarr;</span> / <span class="cap">D</span> Steer right</li>
+              <li><span class="cap">&uarr;</span> / <span class="cap">W</span> Accelerate</li>
+              <li><span class="cap">&darr;</span> / <span class="cap">S</span> Brake / decelerate</li>
+            </ul>
+          </div>
+
+          <ul class="tips">
+            <li><b>C</b> start &nbsp; <b>P</b> / <b>ESC</b> pause &nbsp; <b>M</b> mute</li>
+            <li>Finish before the <b>120s</b> clock hits zero.</li>
+            <li>Hit a car and you get knocked back, then have a few seconds of safety. You can drive off the road, but go too far and you get knocked back onto it. The clock keeps running!</li>
+            <li>Beat <b class="red">Blackout</b>'s 0'54"221 to take rank 1.</li>
+          </ul>
+
+          <button id="howBackBtn" class="menu-btn">Back</button>
+        </div>
+      </div>
+
+      <!-- ===== SETTINGS ===== -->
+      <div id="settingsPanel" class="overlay" role="dialog" aria-modal="true">
+        <div class="panel wide">
+          <h2>Settings</h2>
+
+          <div class="slider-row">
+            <label for="musicVol">Music</label>
+            <input type="range" id="musicVol" min="0" max="100" step="1" value="60" />
+            <output id="musicVolVal">60%</output>
+          </div>
+
+          <div class="slider-row">
+            <label for="sfxVol">Sound FX</label>
+            <input type="range" id="sfxVol" min="0" max="100" step="1" value="100" />
+            <output id="sfxVolVal">100%</output>
+          </div>
+
+          <label id="muteLabel">
+            <input type="checkbox" id="muteToggle" />
+            Mute all sound (M)
+          </label>
+
+          <button id="backBtn" class="menu-btn">Back</button>
+        </div>
+      </div>
+
+      <!-- ===== RESULT: finish / time's up ===== -->
+      <div id="resultPanel" class="overlay" role="dialog" aria-modal="true">
+        <div class="panel wide">
+          <h2 id="resultTitle">Finish!</h2>
+          <p id="resultLap" class="big"></p>
+          <p id="resultMsg" class="msg"></p>
+          <ol id="resultBoard" class="board"></ol>
+          <div class="btn-row">
+            <button id="againBtn" class="menu-btn">Play Again</button>
+            <button id="exitBtn" class="menu-btn">Exit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/game.js"></script>
+  </body>
+</html>
